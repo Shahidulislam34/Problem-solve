@@ -1,3 +1,4 @@
+///accepted
 #include<bits/stdc++.h>
 using namespace std;
 #define int long long int
@@ -9,68 +10,58 @@ void sol(){
     vector<int>v(n + 5), p(n + 5);
     for (int i = 1; i <= n; ++i) cin >> v[i];
     for (int i = 1; i <= n; ++i) cin >> p[i];
-    if (n <= 2){
-        cout << "YES" << endl;
-        return;
-    }
-    int cnt = 0, res = 1;
-    for (int i = 2; i <= n; ++i) {
-        if (v[i - 1] + p[i - 1] >= v[i]) res = i;
+
+    ///right,right
+    int cnt = 0, flag = 0;
+    for (int i = 1; i < n; ++i){
+        if (v[i] + p[i] >= v[i + 1])continue;
         else ++cnt;
-        if (cnt == 2) {
-            res = i - 1;
-            break;
-        }
+        if (cnt >= 2 && i < n) flag = 1;
     }
-    if (cnt <= 2 && res >= n) {
+    if (cnt <= 2 && flag == 0) {
         cout << "YES" << endl;
         return;
     }
 
-    cnt = 0, res = n;
-    for (int i = n - 1; i >= 1; --i){
-        if (v[i + 1] - p[i + 1] <= v[i]) res = i;
+    ///left,left
+    cnt = 0, flag = 0;
+    for (int i = n; i > 1; --i){
+        if (v[i] - p[i] <= v[i - 1])continue;
         else ++cnt;
-        if (cnt >= 2) {
-            res = i + 1;
-            break;
-        }
+        if (cnt >= 2 && i > 1) flag = 1;
     }
-    if (cnt <= 2 && res <= 1){
+    if (cnt <= 2 && flag == 0){
         cout << "YES" << endl;
         return;
     }
 
-    cnt = 0, res = 1;
-    for (int i = 2; i <= n; ++i){
-        if (cnt == 0 && v[i - 1] + p[i - 1] >= v[i]) res = i;
-        else if (cnt == 1 && i < n && v[i + 1] - p[i + 1] <= v[i]) res = i;
+    ///right,left
+    cnt = 0, flag = 0;
+    for (int i = 1; i < n; ++i){
+        if (cnt == 0 && v[i] + p[i] >= v[i + 1])continue;
+        else if (cnt == 1 && v[i + 1] - p[i + 1] <= v[i])continue;
         else ++cnt;
-        if (cnt >= 2){
-            res = i;
-            break;
-        }
+        if (cnt >= 2 && i < n)flag = 1;
     }
-    if (cnt <= 2 && res >= n) {
+    if (cnt <= 2 && flag == 0) {
         cout << "YES" << endl;
         return;
     }
 
-    cnt = 0, res = 1;
-    for (int i = 2; i <= n; ++i){
-        if (cnt == 0 && v[i] - p[i] <= v[i - 1]) res = i;
-        else if(cnt == 1 && v[i - 1] + p[i - 1] >= v[i]) res = i;
+    ///left,right
+    cnt = 0, flag = 0;
+    for (int i = 1; i < n; ++i){
+        if (cnt == 0 && v[i + 1] - p[i + 1] <= v[i]) continue;
+        else if (cnt == 1 && v[i] + p[i] >= v[i + 1]) continue;
         else ++cnt;
-        if (cnt >= 2) {
-            res = i - 1;
-            break;
-        }
+        if (cnt >= 2 && i < n)flag = 1;
     }
-    if (cnt <= 2 && res >= n) {
+    if (cnt <= 2 && flag == 0) {
         cout << "YES" << endl;
         return;
     }
     cout << "NO" << endl;
+
 
 }
 
