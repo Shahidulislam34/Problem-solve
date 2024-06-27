@@ -25,9 +25,6 @@ void sol(){
         suf[i] += suf[i + 1];
     }
     res = sum;
-//    cout << "SUM:" << sum << endl;
-//    for (int i = 1; i <= n; ++i) cout << pre[i] << ' '; cout << endl;
-//    for (int i = 1; i <= n; ++i) cout << suf[i] << ' '; cout << endl;
     for (int i = 1; i <= n; ++i){
         if (v[i] == 1){
             res = max(res, sum + (i - 1 - pre[i - 1]) - suf[i + 1]);
